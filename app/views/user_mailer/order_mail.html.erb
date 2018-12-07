@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hello, here is your order confirmation</h1>
+    <table >
+    <tbody>
+        <% @cart.each do |item| %>
+        <tr>
+          <td><%= @cart[0][:product].name %></td>
+          <td><%= @cart[0][:quantity] %></td>
+          <td><%= @cart[0][:quantity] * @cart[0][:product].price %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <p>
+    Total: <%= @order.total_cents %>
+    Thanks for your order. 
+    </p>
+  </body>
+</html>

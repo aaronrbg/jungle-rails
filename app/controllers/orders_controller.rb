@@ -1,8 +1,9 @@
 class OrdersController < ApplicationController
 
+  
   def show
-    @order = Order.find(params[:id])
     @order_products = []
+    @order = Order.find(params[:id])
     @order.line_items.each do |line_item|
       product = Product.find(line_item.product_id)
       order_product = {
@@ -22,6 +23,7 @@ class OrdersController < ApplicationController
     if order.valid?
       empty_cart!
       redirect_to order, notice: 'Your Order has been placed.'
+
     else
       redirect_to cart_path, flash: { error: order.errors.full_messages.first }
     end
@@ -64,6 +66,9 @@ class OrdersController < ApplicationController
       )
     end
     order.save!
+
+    UserMailer.order_mail(order: order, cart: enhanced_cart).deliver_now
+
     order
   end
 

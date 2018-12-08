@@ -20,26 +20,30 @@
           <dd><%= @product.description %></dd>
           <dt>Quantity</dt>
           <dd><%= @product.quantity %></dd>
-          <dt>Price</dt>
+          <dt>Price</dt>re
           <dd><%= @product.price %></dd>
         </dl>
       </div>
     </div>
 
-    <%= form_for ([@product, @review]) do |f| %>
+    <% if session[:user_id] %>
+      <%= form_for ([@product, @review]) do |f| %>
+        <div class="form-group">
+          <%= f.label :rating %>
+          <%= f.text_field :rating, class: 'form-control' %>
+      </div>
       <div class="form-group">
-        <%= f.label :rating %>
-        <%= f.text_field :rating, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-        <%= f.label :description %>
-        <%= f.text_field :description, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-      <%= f.submit "Submit", class: 'btn btn-primary' %>
-    </div>
+          <%= f.label :description %>
+          <%= f.text_field :description, class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= f.submit "Submit", class: 'btn btn-primary' %>
+      </div>
+      <% end %>
     <% end %>
     
+
+
     <% @product.reviews.each do |review| %>
       <div class="col-sm-8">
       <dl class="dl-horizontal">
@@ -49,6 +53,9 @@
       <dt>Review</dt>
       <dd><%= review.description %></dd>
       </dl>
+        <% if review.user.id == session[:user_id] %>
+          <%= button_to "delete", product_review_url(:product_id => review.product_id, :id => review.id), :method => :delete %>
+        <% end %>
       </div>
       </div>
       <% end %>

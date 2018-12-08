@@ -26,19 +26,35 @@
       </div>
     </div>
 
+    <%= form_for ([@product, @review]) do |f| %>
+      <div class="form-group">
+        <%= f.label :rating %>
+        <%= f.text_field :rating, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_field :description, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.submit "Submit", class: 'btn btn-primary' %>
+    </div>
+    <% end %>
+    
     <% @product.reviews.each do |review| %>
       <div class="col-sm-8">
-        <dl class="dl-horizontal">
-          <h3>COMMENTS</h3>
-          <dt>Author</dt>
-          <dd><%= review.user.first_name %></dd>
-          <dt>Review</dt>
-          <dd><%= review.description %></dd>
-        </dl>
-        </div>
+      <dl class="dl-horizontal">
+      <h3>COMMENTS</h3>
+      <dt>Author</dt>
+      <dd><%= review.user.first_name %></dd>
+      <dt>Review</dt>
+      <dd><%= review.description %></dd>
+      </dl>
       </div>
-    <% end %>
+      </div>
+      <% end %>
+      
 
-  </article>
-
-</section>
+      </article>
+      
+      </section>
+      

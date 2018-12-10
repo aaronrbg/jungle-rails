@@ -8,7 +8,7 @@ class Product < ActiveRecord::Base
   has_many :line_items
 
   validates :name, presence: true
-  validates :price, presence: true
+  validates :price_cents, presence: true
   validates :quantity, presence: true
   validates :category, presence: true
 
